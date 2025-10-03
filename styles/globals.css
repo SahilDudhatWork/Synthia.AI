@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure html and body take full height */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Background image styles */
+/* body {
+  background-image: url("/public/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-color: rgba(0, 0, 0, 0.3);
+  position: relative;
+} */
+
+/* Overlay for better readability */
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: -1;
+} */
+
+/* Better scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin-2::-webkit-scrollbar {
+  height: 4px;
+  width: 2px;
+}
+
+/* Autofill fixes (Chrome/Edge/Safari) to prevent yellow/blue background */
+.onboarding input:-webkit-autofill,
+.onboarding input:-webkit-autofill:hover,
+.onboarding input:-webkit-autofill:focus,
+.onboarding textarea:-webkit-autofill,
+.onboarding textarea:-webkit-autofill:hover,
+.onboarding textarea:-webkit-autofill:focus,
+.onboarding select:-webkit-autofill,
+.onboarding select:-webkit-autofill:hover,
+.onboarding select:-webkit-autofill:focus {
+  /* Simulate transparent background to match glass model */
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.06) inset !important;
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.06) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  /* Prevent flashing of default autofill color */
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Firefox modern autofill */
+.onboarding :-moz-autofill, .onboarding :-moz-autofill:focus {
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.06) inset !important;
+  -moz-text-fill-color: #ffffff !important;
+}

@@ -1,0 +1,296 @@
+{
+  "indexpage": {
+    "titleh1": "Bienvenido a Synthia.AI",
+    "subitile": "Libera el poder de la IA para tu negocio, creatividad e ideas. Experimenta conversaciones inteligentes con tu propio equipo impulsado por IA.",
+    "signup": "Regístrate",
+    "signin": "Iniciar sesión"
+  },
+  "loginpage": {
+    "headTitle": "Iniciar sesión | Synthia.AI",
+    "titleh1": "Iniciar sesión",
+    "subitile": "Accede a tu cuenta",
+    "emailaddress": "Correo electrónico",
+    "password": "Contraseña",
+    "rememberme": "Recuérdame",
+    "forgotpassword": "¿Olvidaste tu contraseña?",
+    "signingin": "Iniciando sesión...",
+    "donthaveaccount": "¿No tienes una cuenta?",
+    "registerhere": "Regístrate aquí"
+  },
+  "registerpage": {
+    "headTitle": "Registrarse | Synthia.AI",
+    "titleh1": "Crea tu cuenta",
+    "subitile": "Únete a nosotros hoy",
+    "name": "Nombre completo",
+    "emailaddress": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordnote": "La contraseña debe tener al menos 8 caracteres",
+    "creatingaccount": "Creando cuenta...",
+    "alreadyhaveaccount": "¿Ya tienes una cuenta?",
+    "signin": "Inicia sesión"
+  },
+  "resetpasswordpage": {
+    "titleh1": "Restablecer contraseña",
+    "successmessage": "¡Enlace para restablecer la contraseña enviado a tu correo!",
+    "backtologin": "Volver al inicio de sesión",
+    "emaillabel": "Correo electrónico",
+    "Sending": "Enviando...",
+    "sendresetlink": "Enviar enlace de restablecimiento",
+    "password": "Contraseña",
+    "backtologinlink": "Volver al inicio de sesión",
+    "links": {
+      "privacypolicy": "Política de privacidad",
+      "termsofuse": "Términos de uso",
+      "cookiepolicy": "Política de cookies"
+    }
+  },
+  "dashboard": {
+    "niceseeyouagainmessage": "Encantado de verte de nuevo, ",
+    "workspace": "Espacio de trabajo",
+    "askaque": "Hacer una pregunta"
+  },
+  "settings": {
+    "changePassword": "Cambiar contraseña",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "conNewPass": "Confirmar nueva contraseña",
+    "cancel": "Cancelar",
+    "updatePassword": "Actualizar contraseña",
+    "personalDetails": "Detalles personales",
+    "email": "Correo electrónico",
+    "languageSettings": "Configuración de idioma",
+    "helpersLanguage": "Idioma de los ayudantes (Idioma que usan tus ayudantes en el chat)",
+    "interfaceLanguage": "Idioma de la interfaz",
+    "security": "Seguridad",
+    "password": "Contraseña",
+    "billingDetails": "Detalles de facturación",
+    "plan": "Plan",
+    "planMonthly": "Synthia.AI • Mensual",
+    "manageBilling": "Administrar facturación",
+    "other": "Otros",
+    "newFeatures": "Nuevas funciones",
+    "requestFeature": "Solicitar una función",
+    "helpAndSupport": "Ayuda y soporte",
+    "signOut": "Cerrar sesión",
+    "languages": {
+      "de": "Alemán",
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "it": "Italiano"
+    },
+    "newPasswordsMismatch": "Las nuevas contraseñas no coinciden",
+    "passwordChangedSuccess": "Contraseña cambiada con éxito",
+    "name": "Nombre",
+    "surname": "Apellido",
+    "job title": "Título profesional"
+  },
+  "workspace-createnew": {
+    "createnewtitleh1": "Crear un nuevo espacio de trabajo",
+    "subheading": "¡Configuremos tu nuevo espacio de trabajo juntos!",
+    "tostartbtn": "Comenzar",
+    "returntodashboard": "Volver al panel"
+  },
+  "workspace": {
+    "loading": "Cargando...",
+    "btnContinue": "Continuar",
+    "left": "Izquierda"
+  },
+  "workspace-step1": {
+    "titleh1": "¿Cómo te gustaría llamar a tu espacio de trabajo?",
+    "companyNameRequired": "Se requiere el nombre de la empresa.",
+    "enterWorkspaceName": "Introduzca el nombre de su espacio de trabajo"
+  },
+  "workspace-step2": {
+    "titleh1": "Información básica",
+    "subheading": "Comencemos con la información esencial",
+    "steptitle": "Paso 2 de 10",
+    "activity": "Describe tu actividad *",
+    "employees": "Número de empleados *",
+    "justme": "Solo yo",
+    "income": {
+      "label": "Ingresos actuales *",
+      "5k": "< 5k/mes",
+      "5to20k": "5k – 20k/mes",
+      "20to50": "20k – 50k/mes",
+      "50to100k": "50k – 100k/mes",
+      "plus100k": "+100k/mes"
+    }
+  },
+  "workspace-step3": {
+    "titleh1": "Propósito del sitio web",
+    "subheading": "Cuéntanos sobre tu presencia en línea",
+    "step3of10": "Paso 3 de 10",
+    "yourwebsite": "Tu sitio web",
+    "website": "Sitio web",
+    "mainpurpose": "¿Cuál es el propósito principal de tu sitio web? *",
+    "websitePurpose": "Propósito del sitio web",
+    "describeplaceholder": "Describe para qué se utiliza tu sitio web (ej., mostrar productos, blog, portafolio, etc.)"
+  },
+  "workspace-step4": {
+    "titleh1": "Comunicación con clientes",
+    "subheading": "¿Cómo te comunicas con tus clientes? *",
+    "step4of10": "Paso 4 de 10",
+    "communicatelabel": "¿Qué utilizas para comunicarte con tus clientes? *",
+    "customerservicereq": "¿Cuántas solicitudes de servicio al cliente recibes por día en promedio? *",
+    "other": "Otro",
+    "none": "Ninguno"
+  },
+  "workspace-step5": {
+    "titleh1": "Comunicación con clientes",
+    "subheading": "¿Cómo te comunicas con tus clientes?",
+    "step5of10": "Paso 5 de 10",
+    "messageslabel": "¿Qué tipo de mensajes? *",
+    "avgresponsetime": "¿Tiempo promedio de respuesta? *",
+    "support": "Soporte",
+    "sale": "Venta",
+    "questions": "Preguntas",
+    "others": "Otros"
+  },
+  "workspace-step6": {
+    "titleh1": "Actividades comerciales",
+    "subheading": "Tus actividades de ventas y prospección",
+    "step6of10": "Paso 6 de 10",
+    "prospect": "¿Todavía calificas a tus prospectos manualmente? *",
+    "yes": "Sí",
+    "postperday": "¿Cuántas publicaciones en Instagram/Facebook por día? *",
+    "callspeerday": "¿Cuántas llamadas de ventas tienes por semana? *"
+  },
+  "workspace-step7": {
+    "errorplatform": "Por favor selecciona al menos una plataforma.",
+    "errorfrequency": "Por favor selecciona tu frecuencia de publicación.",
+    "frequencyoptions": {
+      "severattimesaday": "Varias veces al día",
+      "everyday": "Todos los días",
+      "twodayperweek": "2 veces por semana",
+      "onexperday": "1 vez por semana",
+      "never": "Nunca"
+    },
+    "titleh1": "Plataformas y frecuencia",
+    "subheading": "Tu presencia en las redes sociales",
+    "step7of10": "Paso 7 de 10",
+    "platformactiveon": "¿En qué plataformas estás activo? *",
+    "currentpostfrequency": "¿Con qué frecuencia publicas actualmente? *",
+    "others": "Otros"
+  },
+  "workspace-step8": {
+    "communityoptionslabel": {
+      "1": "Sí",
+      "2": "No, tengo un equipo",
+      "3": "Me gustaría delegar"
+    },
+    "communityhelpoptions": {
+      "1": "No",
+      "2": "Sí, para publicaciones",
+      "3": "Sí, para historias",
+      "4": "Sí, para programación",
+      "5": "Sí, para todo"
+    },
+    "errorselectoneoption": "Por favor selecciona una opción.",
+    "errorselectoneconetent": "Por favor selecciona al menos una opción de ayuda de contenido.",
+    "titleh1": "Plataformas y frecuencia",
+    "subheading": "Tu presencia en las redes sociales",
+    "step8of10": "Paso 8 de 10",
+    "communitymanagemenetpart": "¿Estás solo en la gestión de la comunidad? *",
+    "helpcreatecontent": "¿Quieres que te ayude a crear contenido también? *"
+  },
+  "workspace-step9": {
+    "channeloptions": {
+      "1": "Redes sociales orgánicas",
+      "2": "SEO",
+      "3": "Correo electrónico",
+      "4": "Boca a boca",
+      "5": "Otro"
+    },
+    "strategyOptions": {
+      "1": "Sí",
+      "2": "No",
+      "3": "En progreso"
+    },
+    "aquisitionError": "Por favor selecciona un canal de adquisición.",
+    "errorstrategyplan": "Por favor selecciona una opción de estrategia.",
+    "aquisitionchallenge": "Por favor describe tu desafío de adquisición.",
+    "titleh1": "Marketing y estrategia",
+    "subheading": "Tu presencia en las redes sociales",
+    "step9of10": "Paso 9 de 10",
+    "mainaqchannel": "¿Cuál es tu canal principal de adquisición actual? *",
+    "clearmarketingstrategy": "¿Ya tienes una estrategia de marketing clara? *",
+    "biggestchallenge": "¿Cuál es tu mayor desafío para adquirir nuevos clientes? *",
+    "returntodashboard": "Volver al panel",
+    "previous": "Anterior",
+    "btntoend": "Finalizar"
+  },
+  "workspace-step10": {
+    "error": {
+      "onboardingfailed": "Error al completar la incorporación:",
+      "wentwrong": "Algo salió mal al finalizar tu incorporación."
+    },
+    "finalizing": "Finalizando tu incorporación...",
+    "titleh1": "Bienvenido a Synthia.AI V2",
+    "paragraphs": {
+      "p1": "Si estás leyendo esto, acabas de terminar tu incorporación—y sinceramente, estamos muy contentos de tenerte a bordo.",
+      "p2": "Eres uno de los <b>primeros</b> en probar esta nueva versión.",
+      "p2a": "Cada semana llegan <b>nuevas funciones</b>, y trabajamos sin parar para mejorar la aplicación.",
+      "p3": "Así que si detectas un <b>error</b>, una <b>idea</b> o algo que mejorar... cuéntanos.",
+      "p3a": "Tus comentarios ayudan a <b>toda la comunidad</b>.",
+      "list1": "<b>Escríbenos :</b>",
+      "list1a": "<b>Correo</b> : contact@getmakina.ai",
+      "list1b": "<b>Instagram</b> : @getmakina.ai",
+      "list2": "Revisa la pestaña 'Próximamente' en la barra lateral para ver las funciones próximas.",
+      "p4": "Gracias por ser uno de los pioneros. Construyamos algo grande, juntos."
+    },
+    "returntodashboard": "Ir al panel"
+  },
+  "AIModels": {
+    "names": {
+      "david": "David",
+      "lara": "Lara",
+      "jordan": "Jordan",
+      "jane": "Jane",
+      "rebecca": "Rébecca",
+      "eric": "Éric",
+      "karen": "Karen",
+      "alex": "Alex"
+    },
+    "roles": {
+      "cmo": "Director de Marketing",
+      "ai-assistant": "Asistente de IA",
+      "sales": "Ventas",
+      "csm": "Gerente de Éxito del Cliente",
+      "hr": "Recursos Humanos",
+      "cfo": "Director Financiero",
+      "lawyer": "Abogado",
+      "cpo": "Director de Producto"
+    },
+    "workspaces": "Espacios de trabajo",
+    "inbox": "Bandeja de entrada",
+    "history": "Historia",
+    "no_chat": "Sin historial de chat",
+    "chats_not_found": "No se encontraron chats para",
+    "loading": "Cargando...",
+    "search_chat": "Buscar chats...",
+    "rename": "Renombrar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "delete_chat_confirm": "Eliminar chat?",
+    "delete_chat_confirm_msg": "Esto eliminará el chat de forma permanente.",
+    "last_updated": "Última actualización",
+    "Today": "Hoy",
+    "Yesterday": "Ayer",
+    "Last 7 Days": "Últimos 7 días",
+    "Last 30 Days": "Últimos 30 días",
+    "Previous 30 Days": "30 días anteriores",
+    "January": "Enero",
+    "February": "Febrero",
+    "March": "Marzo",
+    "April": "Abril",
+    "May": "Mayo",
+    "June": "Junio",
+    "July": "Julio",
+    "August": "Agosto",
+    "September": "Septiembre",
+    "October": "Octubre",
+    "November": "Noviembre",
+    "December": "Diciembre"
+  }
+}

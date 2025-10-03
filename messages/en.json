@@ -1,0 +1,220 @@
+{
+  "indexpage": {
+    "titleh1": "Welcome to Synthia.AI",
+    "subitile": "Meet your digital soulmate. Create and converse with a personalized AI companion that understands, supports, and evolves with you.",
+    "signup": "Sign Up",
+    "signin": "Sign In"
+  },
+  "loginpage": {
+    "headTitle": "Login | Synthia.AI",
+    "titleh1": "Login",
+    "subitile": "Sign in to your account",
+    "emailaddress": "Email address",
+    "password": "Password",
+    "rememberme": "Remember me",
+    "forgotpassword": "Forgot password?",
+    "signingin": "Signing in...",
+    "donthaveaccount": "Don't have an account?",
+    "registerhere": "Register here"
+  },
+  "registerpage": {
+    "headTitle": "Register | Synthia.AI",
+    "titleh1": "Create your account",
+    "subitile": "Join us today",
+    "name": "Full Name",
+    "emailaddress": "Email address",
+    "password": "Password",
+    "passwordnote": "Password must be at least 8 characters long",
+    "creatingaccount": "Creating account...",
+    "alreadyhaveaccount": "Already have an account?",
+    "signin": "Sign in"
+  },
+  "resetpasswordpage": {
+    "titleh1": "Reset Password",
+    "successmessage": "Password reset link sent to your email!",
+    "backtologin": "Back to Login",
+    "emaillabel": "E-mail",
+    "Sending": "Sending...",
+    "sendresetlink": "Send Reset Link",
+    "password": "Password",
+    "backtologinlink": "Back to Login",
+    "links": {
+      "privacypolicy": "Privacy Policy",
+      "termsofuse": "Terms of Use",
+      "cookiepolicy": "Cookie Policy"
+    }
+  },
+  "dashboard": {
+    "niceseeyouagainmessage": "Nice to see you again, ",
+    "workspace": "Workspace",
+    "askaque": "Ask a question"
+  },
+  "settings": {
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "conNewPass": "Confirm New Password",
+    "cancel": "Cancel",
+    "updatePassword": "Update Password",
+    "personalDetails": "Personal details",
+    "email": "Email",
+    "languageSettings": "Language Settings",
+    "helpersLanguage": "Helpers language (Language your helpers speak in chat)",
+    "interfaceLanguage": "Interface language",
+    "security": "Security",
+    "password": "Password",
+    "billingDetails": "Billing Details",
+    "plan": "Plan",
+    "planMonthly": "Synthia.AI • Monthly",
+    "manageBilling": "Manage Billing",
+    "other": "Other",
+    "newFeatures": "New Features",
+    "requestFeature": "Request a Feature",
+    "helpAndSupport": "Help & Support",
+    "signOut": "Sign Out",
+    "languages": {
+      "de": "German",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "it": "Italian"
+    },
+    "newPasswordsMismatch": "New passwords don't match",
+    "passwordChangedSuccess": "Password changed successfully",
+    "name": "Name",
+    "surname": "Surname",
+    "job title": "Job Title"
+  },
+  "workspace-createnew": {
+    "createnewtitleh1": "Create a new workspace",
+    "subheading": "Let's set up your new workspace together!",
+    "tostartbtn": "To start",
+    "returntodashboard": "Return to Dashboard"
+  },
+  "workspace": {
+    "loading": "Loading...",
+    "btnContinue": "Continue",
+    "left": "Left"
+  },
+  "workspace-step1": {
+    "titleh1": "What would you like to call your workspace?",
+    "companyNameRequired": "Workspace name is required.",
+    "enterWorkspaceName": "Enter your workspace name"
+  },
+  "workspace-step2": {
+    "titleh1": "Basic Information",
+    "subheading": "Let's start with the essential info",
+    "communicationLabel": "How do you prefer to communicate? *",
+    "privacyLabel": "What's your preferred privacy level? *",
+    "memoryLabel": "Do you want memory enabled? *",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "workspace-step3": {
+    "titleh1": "Interests & Goals",
+    "subheading": "Tell us about your preferences",
+    "interestsLabel": "What are your main interests? *",
+    "goalsLabel": "What are your primary goals? *",
+    "interests": {
+      "music": "Music",
+      "movies": "Movies",
+      "fitness": "Fitness",
+      "technology": "Technology",
+      "art": "Art",
+      "travel": "Travel",
+      "food": "Food",
+      "sports": "Sports"
+    },
+    "goals": {
+      "companionship": "Companionship",
+      "learning": "Learning",
+      "stressRelief": "Stress Relief",
+      "productivity": "Productivity",
+      "entertainment": "Entertainment",
+      "creativity": "Creativity"
+    }
+  },
+  "workspace-step4": {
+    "titleh1": "Personality & Profile",
+    "subheading": "Complete your profile setup",
+    "personalityLabel": "What's your personality type? *",
+    "ageLabel": "What's your age group? *",
+    "personality": {
+      "introvert": "Introvert",
+      "extrovert": "Extrovert",
+      "ambivert": "Ambivert",
+      "analytical": "Analytical",
+      "creative": "Creative"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female",
+      "nonBinary": "Non-binary",
+      "preferNotToSay": "Prefer not to say"
+    },
+    "completeSetup": "Complete Setup"
+  },
+  "workspace-step5": {
+    "titleh1": "Welcome to Your Workspace!",
+    "congratulations": "Congratulations! Your workspace setup is complete.",
+    "setupComplete": "Your personalized AI companion is now ready to assist you.",
+    "readyToStart": "You can start chatting with your AI assistant and explore all the features.",
+    "gotoDashboard": "Go to Dashboard",
+    "finalizing": "Finalizing your setup...",
+    "error": {
+      "wentwrong": "Something went wrong while finalizing your setup."
+    }
+  },
+  "AIModels": {
+    "names": {
+      "david": "David",
+      "lara": "Lara",
+      "jordan": "Jordan",
+      "jane": "Jane",
+      "rebecca": "Rébecca",
+      "eric": "Éric",
+      "karen": "Karen",
+      "alex": "Alex"
+    },
+    "roles": {
+      "cmo": "CMO",
+      "ai-assistant": "AI Assistant",
+      "sales": "Sales",
+      "csm": "CSM",
+      "hr": "HR",
+      "cfo": "CFO",
+      "lawyer": "Lawyer",
+      "cpo": "CPO"
+    },
+    "history": "History",
+    "workspaces": "Workspaces",
+    "inbox": "Inbox",
+    "no_chat": "No chat history",
+    "chats_not_found": "No chats found for",
+    "loading": "Loading...",
+    "search_chat": "Search chats...",
+    "rename": "Rename",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "delete_chat_confirm": "Delete chat?",
+    "delete_chat_confirm_msg": "This will delete the chat permanently.",
+    "last_updated": "Last updated",
+    "Today": "Today",
+    "Yesterday": "Yesterday",
+    "Last 7 Days": "Last 7 Days",
+    "Last 30 Days": "Last 30 Days",
+    "Previous 30 Days": "Previous 30 Days",
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+  }
+}
