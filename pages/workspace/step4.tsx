@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import { supabase } from '../../lib/supabaseClient';
 import { getWorkspace, saveStepData } from '../../lib/workspace';
 import StepBar from '../../components/StepBar';
-import { useTranslations } from 'next-intl';
-import type { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 
 export default function WorkspaceStep4() {
@@ -15,8 +13,7 @@ export default function WorkspaceStep4() {
   const [gender, setGender] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const t = useTranslations('workspace-step4');
-  const w = useTranslations('workspace');
+  
 
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
@@ -71,18 +68,18 @@ export default function WorkspaceStep4() {
   };
 
   const personalityOptions = [
-    t('personality.introvert'),
-    t('personality.extrovert'),
-    t('personality.ambivert'),
-    t('personality.analytical'),
-    t('personality.creative')
+    'Introvert',
+    'Extrovert',
+    'Ambivert',
+    'Analytical',
+    'Creative',
   ];
 
   const genderOptions = [
-    t('gender.male'),
-    t('gender.female'),
-    t('gender.nonBinary'),
-    t('gender.preferNotToSay')
+    'Male',
+    'Female',
+    'Non-binary',
+    'Prefer not to say',
   ];
 
   const ageGroups = ['18-24', '25-34', '35-44', '45-54', '55+'];
@@ -91,9 +88,10 @@ export default function WorkspaceStep4() {
     <div className="min-h-screen flex flex-col text-white px-4 relative">
       {/* Background image */}
       <Image
-        src="/onboardingBGNew.jpg"
+        src="/onboardingBG.jpg"
         alt="Workspace Background"
         fill
+        sizes="100vw"
         className="absolute top-0 left-0 object-cover pointer-events-none"
         style={{ zIndex: 0, opacity: 0.9 }}
       />
@@ -115,15 +113,15 @@ export default function WorkspaceStep4() {
       <div
         className="absolute top-0 left-0 w-full h-full backdrop-blur-xl bg-black/20"
         style={{
-          background: "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(128,128,128,1) 100%)",
+          background: "linear-gradient(to top, rgba(20,0,10,0.92) 0%, rgba(0,0,0,0.55) 30%, rgba(255,64,112,0.35) 100%)",
           zIndex: 1,
         }}
       />
 
       <div className="z-10 h-screen text-white flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-md space-y-6">
-          <h1 className="text-4xl font-semibold mb-2">{t('titleh1')}</h1>
-          <p className="text-white/65 mb-6">{t('subheading')}</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">{'Personality & Profile'}</h1>
+          <p className="text-sm sm:text-base md:text-lg text-white/65 mb-6">{'Complete your profile setup'}</p>
 
           {/* Glass model container */}
           <div className="w-full max-w-md rounded-xl bg-white/10 border border-white/20 backdrop-blur-lg shadow-2xl shadow-black/30 p-6">
@@ -132,9 +130,9 @@ export default function WorkspaceStep4() {
                 {/* Personality Type */}
                 <div>
                   <label className="text-white-300 font-semibold mb-2 block">
-                    {t('personalityLabel')}
+                    {"What's your personality type? *"}
                   </label>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {personalityOptions.map((type) => (
                       <button
                         type="button"
@@ -142,8 +140,8 @@ export default function WorkspaceStep4() {
                         onClick={() => setPersonalityType(type)}
                         className={`px-4 py-2 rounded-[15px] ${
                           personalityType === type
-                            ? 'bg-white text-black font-semibold'
-                            : 'bg-white/10 text-white hover:bg-white/20'
+                            ? 'bg-rose-500 text-white font-semibold'
+                            : 'bg-white/10 text-white hover:bg-rose-400/20'
                         } transition-colors duration-200`}
                       >
                         {type}
@@ -155,9 +153,9 @@ export default function WorkspaceStep4() {
                 {/* Age Group */}
                 <div>
                   <label className="text-white-300 font-semibold mb-2 block">
-                    {t('ageLabel')}
+                    {"What's your age group? *"}
                   </label>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {ageGroups.map((ageGroup) => (
                       <button
                         type="button"
@@ -165,8 +163,8 @@ export default function WorkspaceStep4() {
                         onClick={() => setAge(ageGroup)}
                         className={`px-4 py-2 rounded-[15px] ${
                           age === ageGroup
-                            ? 'bg-white text-black font-semibold'
-                            : 'bg-white/10 text-white hover:bg-white/20'
+                            ? 'bg-rose-500 text-white font-semibold'
+                            : 'bg-white/10 text-white hover:bg-rose-400/20'
                         } transition-colors duration-200`}
                       >
                         {ageGroup}
@@ -178,9 +176,9 @@ export default function WorkspaceStep4() {
                 {/* Gender */}
                 <div>
                   <label className="text-white-300 font-semibold mb-2 block">
-                    {t('genderLabel')}
+                    {"What's your gender? *"}
                   </label>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {genderOptions.map((genderOption) => (
                       <button
                         type="button"
@@ -188,8 +186,8 @@ export default function WorkspaceStep4() {
                         onClick={() => setGender(genderOption)}
                         className={`px-4 py-2 rounded-[15px] ${
                           gender === genderOption
-                            ? 'bg-white text-black font-semibold'
-                            : 'bg-white/10 text-white hover:bg-white/20'
+                            ? 'bg-rose-500 text-white font-semibold'
+                            : 'bg-white/10 text-white hover:bg-rose-400/20'
                         } transition-colors duration-200`}
                       >
                         {genderOption}
@@ -205,13 +203,13 @@ export default function WorkspaceStep4() {
                   <button
                     type="submit"
                     disabled={isSubmitting || !personalityType || !age || !gender}
-                    className={`w-full bg-blue-600 px-4 py-2 rounded-[18px] font-semibold transition ${
+                    className={`w-full bg-rose-600 px-4 py-2 rounded-[18px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400/50 ${
                       isSubmitting || !personalityType || !age || !gender
                         ? 'opacity-50 cursor-not-allowed'
-                        : 'hover:bg-blue-700'
+                        : 'hover:bg-rose-700'
                     }`}
                   >
-                    {isSubmitting ? w('loading') : t('completeSetup')}
+                    {isSubmitting ? 'Loading...' : 'Complete Setup'}
                   </button>
                 </div>
               </div>
@@ -221,12 +219,4 @@ export default function WorkspaceStep4() {
       </div>
     </div>
   );
-}
-
-export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  return {
-    props: {
-      messages: (await import(`../../messages/${locale}.json`)).default
-    }
-  };
 }

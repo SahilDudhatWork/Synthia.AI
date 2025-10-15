@@ -1,100 +1,96 @@
-import { supabase } from "../../lib/supabaseClient";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { supabaseAdmin } from "../../lib/supabaseAdmin";
+import formidable from "formidable";
+import fs from "fs";
 
-export interface SaveImageParams {
-  userId: string;
-  workspaceId: string;
-  chatId?: string | null;
-  file: { name: string; buffer: Buffer; type: string };
-}
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-export interface SaveImageResponse {
-  success: boolean;
-  image?: {
-    id: string;
-    url: string;
-    storage_path: string;
-    file_name: string;
-    user_id: string;
-    workspace_id: string;
-    chat_id: string | null;
-    created_at: string;
-  };
-  error?: string;
-}
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, error: "Method not allowed" });
+  }
 
-export async function saveImage({ userId, workspaceId, chatId, file }: SaveImageParams): Promise<SaveImageResponse> {
   try {
-    // Validate inputs
-    if (!userId || !workspaceId) {
-      return { success: false, error: "userId and workspaceId are required" };
-    }
+    const form = formidable({ multiples: false, keepExtensions: true });
 
-    if (!file || !file.buffer || !file.name) {
-      return { success: false, error: "Valid file object is required" };
-    }
-
-    // Create file path with user and workspace organization
-    const timestamp = Date.now();
-    const safeFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const filePath = `${userId}/${workspaceId}/${timestamp}-${safeFileName}`;
-
-    console.log(`Uploading image to path: ${filePath}`);
-
-    // Upload to Supabase Storage
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from("images")
-      .upload(filePath, file.buffer, {
-        contentType: file.type,
-        upsert: false, // Don't overwrite existing files
-        cacheControl: '3600',
+    const { fields, files }: any = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) return reject(err);
+        resolve({ fields, files });
       });
+    });
 
+    const userId = String(fields.userId || "");
+    const workspaceId = String(fields.workspaceId || "");
+    const chatId = fields.chatId ? String(fields.chatId) : null;
+    const fileEntry = files?.file;
+    const file = Array.isArray(fileEntry) ? fileEntry[0] : fileEntry;
+
+    if (!userId || !workspaceId) {
+      return res.status(400).json({ success: false, error: "userId and workspaceId are required" });
+    }
+    if (!file) {
+      return res.status(400).json({ success: false, error: "file is required" });
+    }
+
+    const filePathOnDisk = file.filepath || file.path; // formidable v3 vs v2
+    if (!filePathOnDisk) {
+      return res.status(400).json({ success: false, error: "uploaded file missing path" });
+    }
+    const originalName = file.originalFilename || file.name || `upload-${Date.now()}`;
+    const mimeType = file.mimetype || "application/octet-stream";
+    const buffer = await fs.promises.readFile(filePathOnDisk);
+
+    const timestamp = Date.now();
+    const safeFileName = originalName.replace(/[^a-zA-Z0-9.-]/g, "_");
+    const storagePath = `${userId}/${workspaceId}/${timestamp}-${safeFileName}`;
+
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("images")
+      .upload(storagePath, buffer, {
+        contentType: mimeType,
+        upsert: false,
+        cacheControl: "3600",
+      });
+      
     if (uploadError) {
-      console.error("Storage upload error:", uploadError);
-      return { success: false, error: `Upload failed: ${uploadError.message}` };
+      return res.status(400).json({ success: false, error: `Upload failed: ${uploadError.message}` });
     }
 
-    // Get public URL
-    const { data: publicUrlData } = supabase.storage
-      .from("images")
-      .getPublicUrl(filePath);
-
+    const { data: publicUrlData } = supabaseAdmin.storage.from("images").getPublicUrl(storagePath);
     const publicUrl = publicUrlData.publicUrl;
-
     if (!publicUrl) {
-      return { success: false, error: "Failed to generate public URL" };
+      return res.status(500).json({ success: false, error: "Failed to generate public URL" });
     }
 
-    console.log(`Image uploaded successfully. Public URL: ${publicUrl}`);
-
-    // Insert metadata into database
-    const { data: dbData, error: dbError } = await supabase
+    const { data: dbData, error: dbError } = await supabaseAdmin
       .from("images")
-      .insert([{
-        user_id: userId,
-        workspace_id: workspaceId,
-        chat_id: chatId || null,
-        url: publicUrl,
-        storage_path: filePath,
-        file_name: file.name,
-        file_size: file.buffer.length,
-        mime_type: file.type
-      }])
+      .insert([
+        {
+          user_id: userId,
+          workspace_id: workspaceId,
+          chat_id: chatId,
+          url: publicUrl,
+          storage_path: storagePath,
+          file_name: originalName,
+          file_size: buffer.length,
+          mime_type: mimeType,
+        },
+      ])
       .select()
       .single();
 
     if (dbError) {
-      console.error("Database insert error:", dbError);
-
-      // Try to delete the uploaded file if DB insert fails
-      await supabase.storage
-        .from("images")
-        .remove([filePath]);
-
-      return { success: false, error: `Database error: ${dbError.message}` };
+      // On DB error, try to cleanup the file
+      await supabaseAdmin.storage.from("images").remove([storagePath]);
+      return res.status(400).json({ success: false, error: `Database error: ${dbError.message}` });
     }
 
-    return {
+    return res.status(200).json({
       success: true,
       image: {
         id: dbData.id,
@@ -104,15 +100,10 @@ export async function saveImage({ userId, workspaceId, chatId, file }: SaveImage
         user_id: dbData.user_id,
         workspace_id: dbData.workspace_id,
         chat_id: dbData.chat_id,
-        created_at: dbData.created_at
-      }
-    };
-
+        created_at: dbData.created_at,
+      },
+    });
   } catch (err: any) {
-    console.error("Unexpected error in saveImage:", err);
-    return {
-      success: false,
-      error: err.message || "Unexpected error occurred while saving image"
-    };
+    return res.status(500).json({ success: false, error: err.message || "Unexpected error" });
   }
 }

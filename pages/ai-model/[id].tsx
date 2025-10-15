@@ -7,19 +7,20 @@ import HistoryPage from "../../components/PromptPanel/HistoryPage";
 import { GetServerSidePropsContext } from "next";
 import { useAppContext } from "../../lib/AppContext";
 
-interface AIModel {
+interface AIPromptModel {
     id: string;
     workspace_id: string;
     name: string;
     role: string;
     personality: string;
-    predefined?: boolean;
+    predefined: boolean;
     topics?: string[];
     custom_triggers?: string[];
-    created_at?: string;
-    updated_at?: string;
-    is_active?: boolean;
+    system_prompt?: string;
     config?: Record<string, any>;
+    created_at: string;
+    updated_at: string;
+    is_active: boolean;
 }
 
 const AIPromptPage = () => {
@@ -28,7 +29,8 @@ const AIPromptPage = () => {
     const { id, workspaceId, chatId, view, initialMessage } = router.query;
 
     const [user, setUser] = useState<any>(null);
-    const [AIModel, setAIModel] = useState<AIModel | null>(null);
+    const [AIModel, setAIModel] = useState<AIPromptModel | null>(null);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -93,11 +95,27 @@ const AIPromptPage = () => {
                 }
 
                 // Prefer user-created model if exists, otherwise fallback to static one
-                const aiModel = aiModels.find(m => m.workspace_id === workspaceId)
+                const raw = aiModels.find(m => m.workspace_id === workspaceId)
                     || aiModels.find(m => m.workspace_id === null);
 
+                // Coerce to AIPromptModel with required fields
+                const normalized: AIPromptModel = {
+                    id: raw.id,
+                    workspace_id: raw.workspace_id,
+                    name: raw.name,
+                    role: raw.role,
+                    personality: raw.personality,
+                    predefined: Boolean(raw.predefined),
+                    topics: raw.topics || [],
+                    custom_triggers: raw.custom_triggers || [],
+                    system_prompt: raw.system_prompt || undefined,
+                    config: raw.config || {},
+                    created_at: raw.created_at || new Date().toISOString(),
+                    updated_at: raw.updated_at || new Date().toISOString(),
+                    is_active: raw.is_active ?? true,
+                };
 
-                setAIModel(aiModel);
+                setAIModel(normalized);
             } catch (err: any) {
                 console.error(err);
                 setError(err.message || "Failed to load AI model");

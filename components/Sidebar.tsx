@@ -363,7 +363,7 @@ export default function Sidebar({
               className="fixed inset-0 md:inset-[0px_0px_0px_80px] z-50 bg-black/50"
               style={{ opacity: 1 }}
             ></div>
-            <div className="fixed inset-y-0 z-50 flex w-full flex-col md:left-20 md:max-w-96 overflow-hidden md:rounded-br-[24px] md:rounded-tr-[24px] bg-gradient-to-r from-white to-neutral-200 ring-1 ring-inset ring-white/10 [body:has(&)]:overflow-hidden transition-all">
+            <div className="fixed inset-y-0 z-50 flex w-full flex-col md:left-20 md:max-w-[24rem] overflow-hidden md:rounded-br-[24px] md:rounded-tr-[24px] bg-gradient-to-r from-white to-neutral-200 ring-1 ring-inset ring-white/10 [body:has(&)]:overflow-hidden transition-all">
               <div className="md:hidden" onClick={() => setActivePanel(null)}>
                 <div className="flex items-center justify-between gap-4 px-3 py-3">
                   <button
@@ -429,7 +429,7 @@ export default function Sidebar({
                               toggleSidebar?.();
                               setActivePanel(null);
                             }}
-                            className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 ${isActive ? "bg-blue-500/5" : ""
+                            className={`group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 ${isActive ? "bg-rose-500/5" : ""
                               } cursor-pointer`}
                           >
                             <div className="relative">
@@ -454,7 +454,7 @@ export default function Sidebar({
                                     viewBox="0 0 24 24"
                                     fill="currentColor"
                                     stroke="none"
-                                    className="size-4 text-blue-500"
+                                    className="size-4 text-rose-500"
                                   >
                                     <path
                                       d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM17.2071 9.70711C17.5976 9.31658 17.5976 8.68342 17.2071 8.29289C16.8166 7.90237 16.1834 7.90237 15.7929 8.29289L10.5 13.5858L8.20711 11.2929C7.81658 10.9024 7.18342 10.9024 6.79289 11.2929C6.40237 11.6834 6.40237 12.3166 6.79289 12.7071L9.79289 15.7071C10.1834 16.0976 10.8166 16.0976 11.2071 15.7071L17.2071 9.70711Z"
@@ -477,7 +477,7 @@ export default function Sidebar({
                     <div className="peer flex flex-col gap-1 rounded-2xl p-1 bg-white shadow-lg empty:hidden">
                       <div
                         onClick={() => router.push("/workspace/createNew")}
-                        className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-blue-500/5 cursor-pointer"
+                        className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-rose-500/5 cursor-pointer"
                       >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
                           <svg
@@ -516,7 +516,7 @@ export default function Sidebar({
               className="fixed inset-0 md:inset-[0px_0px_0px_80px] z-50 bg-black/50"
               style={{ opacity: 1 }}
             ></div>
-            <div className="fixed inset-0 md:inset-y-0 z-50 flex w-full flex-col md:left-20 md:max-w-96 overflow-hidden md:rounded-br-[24px] md:rounded-tr-[24px] bg-gradient-to-r from-white  to-neutral-200 ring-1 ring-inset ring-white/10 [body:has(&amp;)]:overflow-hidden">
+            <div className="fixed inset-0 md:inset-y-0 z-50 flex w-full flex-col md:left-20 md:max-w-[24rem] overflow-hidden md:rounded-br-[24px] md:rounded-tr-[24px] bg-gradient-to-r from-white  to-neutral-200 ring-1 ring-inset ring-white/10 [body:has(&amp;)]:overflow-hidden">
               <div className="md:hidden" onClick={() => setActivePanel(null)}>
                 <div className="flex items-center justify-between gap-4 px-3 py-3">
                   <button
@@ -614,7 +614,7 @@ export default function Sidebar({
                                   <div className="rounded-xl">
                                     <div
                                       role="button"
-                                      className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-blue-500/5 cursor-pointer"
+                                      className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-rose-500/5 cursor-pointer"
                                       onClick={() => {
                                         router.push(
                                           `/ai-model/${chat.modelId}?workspaceId=${activeWorkspaceId}&chatId=${chat.id}`
@@ -629,7 +629,7 @@ export default function Sidebar({
                                         style={{
                                           padding: "5px",
                                         }}
-                                        className="max-w-[44px] max-h-[44px] rounded-full object-cover"
+                                        className="w-11 h-11 rounded-full object-cover"
                                       />
                                       <div className="flex min-w-0 flex-1 flex-col">
                                         <p className="text-[16px] leading-[24px] font-medium truncate text-black">
@@ -733,7 +733,7 @@ export default function Sidebar({
                           <div className="rounded-xl">
                             <div
                               role="button"
-                              className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-blue-500/5 cursor-pointer"
+                              className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl p-3 hover:bg-black/5 active:bg-rose-500/5 cursor-pointer"
                             >
                               <div className="relative">
                                 <div className="relative size-10 flex-none overflow-hidden rounded-full">

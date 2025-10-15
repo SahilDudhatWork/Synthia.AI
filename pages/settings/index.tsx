@@ -3,7 +3,6 @@ import { useSidebar } from "../../components/AppLayout";
 import { supabase } from "../../lib/supabaseClient";
 import { useRouter } from "next/router";
 import { GetStaticPropsContext } from "next";
-import { saveImage } from "../api/storeImage";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useTranslations } from 'next-intl';
 
@@ -116,6 +115,24 @@ export default function Settings() {
 
         setUser(user);
 
+        // Ensure we have an activeWorkspaceId (fallback to user's first workspace)
+        try {
+          if (!queryWorkspaceId) {
+            const { data: wsList, error: wsError } = await supabase
+              .from("workspaces")
+              .select("id")
+              .eq("user_id", user.id)
+              .order("created_at", { ascending: true });
+            if (!wsError && wsList && wsList.length > 0) {
+              setActiveWorkspaceId(wsList[0].id);
+            }
+          } else {
+            setActiveWorkspaceId(queryWorkspaceId);
+          }
+        } catch (e) {
+          // non-blocking: settings can still load without workspace
+        }
+
         // Fetch user data from the new public.users table
         const { data: userData, error } = await supabase
           .from("users")
@@ -224,28 +241,28 @@ export default function Settings() {
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file || !user || !activeWorkspaceId) return;
+    if (!file || !user) return;
+    if (!activeWorkspaceId) {
+      setMessage({ type: 'error', text: 'No workspace found. Please create a workspace first.' });
+      return;
+    }
 
     setUploading(true);
 
     try {
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
+      const form = new FormData();
+      form.append("userId", user.id);
+      form.append("workspaceId", activeWorkspaceId);
+      form.append("file", file, file.name || `uploaded-${Date.now()}.jpg`);
 
-      const fileData = {
-        name: file.name || `uploaded-${Date.now()}.jpg`,
-        buffer,
-        type: file.type || "image/jpeg",
-      };
-
-      const result = await saveImage({
-        userId: user.id,
-        workspaceId: activeWorkspaceId,
-        file: fileData,
+      const res = await fetch("/api/storeImage", {
+        method: "POST",
+        body: form,
       });
 
-      if (!result.success) {
-        throw new Error(result.error || "Image upload failed");
+      const result = await res.json();
+      if (!res.ok || !result?.success) {
+        throw new Error(result?.error || "Image upload failed");
       }
 
       setProfileImage(result.image.url);

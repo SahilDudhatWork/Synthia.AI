@@ -226,12 +226,12 @@ const AIPromptPanel = ({
     <div className="flex flex-col items-center justify-center text-center gap-4 p-4 h-full">
       <div
         style={{ backgroundColor: AIModel.config?.bg || "#ffffff" }}
-        className="w-[150px] h-[150px] rounded-full flex items-center justify-center overflow-hidden shadow-md p-2.5"
+        className="w-28 h-28 sm:w-36 sm:h-36 rounded-full flex items-center justify-center overflow-hidden shadow-md p-2.5"
       >
         <img
           src={AIModel.role ? `/${AIModel.role}.png` : "/default-avatar.png"}
           alt="AI Model Avatar"
-          className="w-[135px] h-[130px] flex items-center justify-center overflow-hidden rounded-full relative z-10"
+          className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center overflow-hidden rounded-full relative z-10"
         />
       </div>
       <div>

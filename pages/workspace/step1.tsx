@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import { getWorkspace, saveStepData } from "../../lib/workspace";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import type { GetStaticPropsContext } from "next";
 import StepBar from "../../components/StepBar";
 
 export default function WorkspaceStep1() {
@@ -15,8 +13,7 @@ export default function WorkspaceStep1() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const t = useTranslations("workspace-step1");
-  const w = useTranslations("workspace");
+  
 
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
@@ -44,7 +41,7 @@ export default function WorkspaceStep1() {
     setIsSubmitting(true);
 
     if (!name.trim()) {
-      setError(t("nameRequired"));
+      setError("Workspace name is required.");
       setIsSubmitting(false);
       return;
     }
@@ -95,9 +92,10 @@ export default function WorkspaceStep1() {
     <div className="relative min-h-screen flex flex-col text-white px-4 onboarding">
       {/* Background image */}
       <Image
-        src="/onboardingBGNew.jpg"
+        src="/onboardingBG.jpg"
         alt="Workspace Background"
         fill
+        sizes="100vw"
         className="absolute top-0 left-0 object-cover pointer-events-none"
         style={{ zIndex: 0, opacity: 0.9 }}
       />
@@ -107,7 +105,7 @@ export default function WorkspaceStep1() {
         className="absolute top-0 left-0 w-full h-full backdrop-blur-xl bg-black/20"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(128,128,128,1) 100%)",
+            "linear-gradient(to top, rgba(20,0,10,0.92) 0%, rgba(0,0,0,0.55) 30%, rgba(255,64,112,0.35) 100%)",
           zIndex: 1,
         }}
       />
@@ -120,8 +118,8 @@ export default function WorkspaceStep1() {
         className="relative flex flex-col items-center justify-center flex-grow w-full"
         style={{ zIndex: 10 }}
       >
-        <h1 className="text-3xl mb-6 text-center w-96 mx-auto font-semibold">
-          {t("titleh1")}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl mb-6 text-center mx-auto font-semibold">
+          {"What would you like to call your workspace?"}
         </h1>
 
         <form
@@ -143,7 +141,7 @@ export default function WorkspaceStep1() {
               htmlFor="workspaceName"
               className="absolute left-4 top-2 text-white/60 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-white/70 peer-focus:top-2 peer-focus:text-sm peer-focus:text-white/70"
             >
-              {t("enterWorkspaceName")}
+              {"Enter your workspace name"}
             </label>
             {error && (
               <div className="text-red-500 mt-1 text-sm text-center">
@@ -157,12 +155,13 @@ export default function WorkspaceStep1() {
               <button
                 type="submit"
                 disabled={isSubmitting || !name.trim()}
-                className={`w-full bg-blue-600 px-4 py-2 rounded-[18px] font-semibold transition ${isSubmitting || !name.trim()
+                className={`w-full bg-rose-600 px-4 py-2 rounded-[18px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400/50 ${
+                  isSubmitting || !name.trim()
                     ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-blue-700"
-                  }`}
+                    : "hover:bg-rose-700"
+                }`}
               >
-                {isSubmitting ? w("loading") : w("btnContinue")}
+                {isSubmitting ? "Loading..." : "Continue"}
               </button>
             </div>
           </div>
@@ -170,12 +169,4 @@ export default function WorkspaceStep1() {
       </div>
     </div>
   );
-}
-
-export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  return {
-    props: {
-      messages: (await import(`../../messages/${locale}.json`)).default,
-    },
-  };
 }

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
-import { saveImage, SaveImageResponse } from "./storeImage";
+import { supabaseAdmin } from "../../lib/supabaseAdmin";
 
 interface ApiResponse {
   success?: boolean;
@@ -70,37 +70,52 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       });
     }
 
-    // Create file object
-    const file = {
-      name: `generated-${Date.now()}.${fileExtension}`,
-      buffer: Buffer.from(response.data),
-      type: contentType,
-    };
+    // Upload to Supabase storage
+    const buffer = Buffer.from(response.data);
+    const name = `generated-${Date.now()}.${fileExtension}`;
+    const storagePath = `${userId}/${workspaceId}/${name}`;
 
-    console.log(`Image downloaded successfully. Size: ${file.buffer.length} bytes, Type: ${contentType}`);
-
-    // Save to Supabase
-    const result: SaveImageResponse = await saveImage({
-      userId,
-      workspaceId,
-      chatId: chatId || null,
-      file
-    });
-
-    if (!result.success || !result.image?.url) {
-      console.error("saveImage failed:", result.error);
-      return res.status(500).json({
-        error: result.error || "Failed to save image to storage"
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("images")
+      .upload(storagePath, buffer, {
+        contentType,
+        upsert: false,
+        cacheControl: "3600",
       });
+
+    if (uploadError) {
+      return res.status(400).json({ error: `Upload failed: ${uploadError.message}` });
     }
 
-    console.log(`Image saved successfully. ID: ${result.image.id}, URL: ${result.image.url}`);
+    const { data: publicUrlData } = supabaseAdmin.storage.from("images").getPublicUrl(storagePath);
+    const publicUrl = publicUrlData.publicUrl;
+    if (!publicUrl) {
+      return res.status(500).json({ error: "Failed to generate public URL" });
+    }
 
-    return res.status(200).json({
-      success: true,
-      url: result.image.url,
-      imageId: result.image.id
-    });
+    const { data: dbData, error: dbError } = await supabaseAdmin
+      .from("images")
+      .insert([
+        {
+          user_id: userId!,
+          workspace_id: workspaceId!,
+          chat_id: chatId || null,
+          url: publicUrl,
+          storage_path: storagePath,
+          file_name: name,
+          file_size: buffer.length,
+          mime_type: contentType,
+        },
+      ])
+      .select()
+      .single();
+
+    if (dbError) {
+      await supabaseAdmin.storage.from("images").remove([storagePath]);
+      return res.status(400).json({ error: `Database error: ${dbError.message}` });
+    }
+
+    return res.status(200).json({ success: true, url: publicUrl, imageId: dbData.id });
 
   } catch (err: unknown) {
     console.error("saveGeneratedImage unexpected error:", err);

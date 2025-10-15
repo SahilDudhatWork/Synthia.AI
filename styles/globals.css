@@ -39,6 +39,16 @@ html {
   scroll-behavior: smooth;
 }
 
+@keyframes toploader {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(50%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-toploader {
+  animation: toploader 1s linear infinite;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

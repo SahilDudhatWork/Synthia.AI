@@ -129,7 +129,7 @@ export default function Login() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
                     placeholder="you@example.com"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -159,7 +159,7 @@ export default function Login() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
                     placeholder="••••••••"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -188,7 +188,7 @@ export default function Login() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-white rounded"
+                  className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-white rounded"
                 />
                 <label
                   htmlFor="remember-me"
@@ -201,7 +201,7 @@ export default function Login() {
               <div className="text-sm">
                 <Link
                   href="/auth/reset"
-                  className="font-medium text-white hover:text-blue-900"
+                  className="font-medium text-white hover:text-rose-200"
                 >
                   {t("forgotpassword")}
                 </Link>
@@ -212,7 +212,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all ${loading ? "opacity-80 cursor-not-allowed" : ""
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-fuchsia-500 via-rose-500 to-pink-500 hover:from-fuchsia-600 hover:via-rose-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-all ${loading ? "opacity-80 cursor-not-allowed" : ""
                   }`}
               >
                 {loading ? (
@@ -252,7 +252,7 @@ export default function Login() {
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all ${loading ? 'opacity-80 cursor-not-allowed' : ''}`}
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-all ${loading ? 'opacity-80 cursor-not-allowed' : ''}`}
               >
                 <>
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ display: "block", width: "20px", margin: "0 10px 0 0" }}>
@@ -283,7 +283,7 @@ export default function Login() {
               {t("donthaveaccount")}{" "}
               <Link
                 href="/auth/register"
-                className="font-medium text-blue-500 hover:text-blue-900"
+                className="font-medium text-rose-400 hover:text-rose-200"
               >
                 {t("registerhere")}
               </Link>

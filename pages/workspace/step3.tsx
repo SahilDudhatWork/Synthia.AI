@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { supabase } from "../../lib/supabaseClient";
 import { getWorkspace, saveStepData } from "../../lib/workspace";
 import StepBar from "../../components/StepBar";
-import { useTranslations } from "next-intl";
-import type { GetStaticPropsContext } from "next";
 import Image from "next/image";
 
 export default function WorkspaceStep3() {
@@ -79,36 +77,36 @@ export default function WorkspaceStep3() {
     }
   };
 
-  const t = useTranslations("workspace-step3");
-  const w = useTranslations("workspace");
+
 
   const interestOptions = [
-    t("interests.music"),
-    t("interests.movies"),
-    t("interests.fitness"),
-    t("interests.technology"),
-    t("interests.art"),
-    t("interests.travel"),
-    t("interests.food"),
-    t("interests.sports")
+    "Music",
+    "Movies",
+    "Fitness",
+    "Technology",
+    "Art",
+    "Travel",
+    "Food",
+    "Sports",
   ];
 
   const goalOptions = [
-    t("goals.companionship"),
-    t("goals.learning"),
-    t("goals.stressRelief"),
-    t("goals.productivity"),
-    t("goals.entertainment"),
-    t("goals.creativity")
+    "Companionship",
+    "Learning",
+    "Stress Relief",
+    "Productivity",
+    "Entertainment",
+    "Creativity",
   ];
 
   return (
     <div className="min-h-screen flex flex-col text-white px-4 relative">
       {/* Background image */}
       <Image
-        src="/onboardingBGNew.jpg"
+        src="/onboardingBG.jpg"
         alt="Workspace Background"
         fill
+        sizes="100vw"
         className="absolute top-0 left-0 object-cover pointer-events-none"
         style={{ zIndex: 0, opacity: 0.9 }}
       />
@@ -131,15 +129,15 @@ export default function WorkspaceStep3() {
         className="absolute top-0 left-0 w-full h-full backdrop-blur-xl bg-black/20"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(128,128,128,1) 100%)",
+            "linear-gradient(to top, rgba(20,0,10,0.92) 0%, rgba(0,0,0,0.55) 30%, rgba(255,64,112,0.35) 100%)",
           zIndex: 1,
         }}
       />
 
       <div className="z-10 h-screen text-white flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-md space-y-6">
-          <h1 className="text-4xl font-semibold mb-2">{t("titleh1")}</h1>
-          <p className="text-white/65 mb-6">{t("subheading")}</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">{"Interests & Goals"}</h1>
+          <p className="text-sm sm:text-base md:text-lg text-white/65 mb-6">{"Tell us about your preferences"}</p>
 
           {/* Glass model container */}
           <div className="w-full max-w-md rounded-xl bg-white/10 border border-white/20 backdrop-blur-lg shadow-2xl shadow-black/30 p-6">
@@ -148,19 +146,18 @@ export default function WorkspaceStep3() {
                 {/* Interests */}
                 <div>
                   <label className="text-white-300 font-semibold mb-2 block">
-                    {t("interestsLabel")}
+                    {"What are your main interests? *"}
                   </label>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {interestOptions.map((interest) => (
                       <button
                         type="button"
                         key={interest}
                         onClick={() => toggleInterest(interest)}
-                        className={`px-4 py-2 rounded-[15px] ${
-                          interests.includes(interest)
-                            ? "bg-white text-black font-semibold"
-                            : "bg-white/10 text-white hover:bg-white/20"
-                        } transition-colors duration-200`}
+                        className={`px-4 py-2 rounded-[15px] ${interests.includes(interest)
+                            ? "bg-rose-500 text-white font-semibold"
+                            : "bg-white/10 text-white hover:bg-rose-400/20"
+                          } transition-colors duration-200`}
                       >
                         {interest}
                       </button>
@@ -171,19 +168,18 @@ export default function WorkspaceStep3() {
                 {/* Goals */}
                 <div>
                   <label className="text-white-300 font-semibold mb-2 block">
-                    {t("goalsLabel")}
+                    {"What are your primary goals? *"}
                   </label>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {goalOptions.map((goal) => (
                       <button
                         type="button"
                         key={goal}
                         onClick={() => toggleGoal(goal)}
-                        className={`px-4 py-2 rounded-[15px] ${
-                          goals.includes(goal)
-                            ? "bg-white text-black font-semibold"
-                            : "bg-white/10 text-white hover:bg-white/20"
-                        } transition-colors duration-200`}
+                        className={`px-4 py-2 rounded-[15px] ${goals.includes(goal)
+                            ? "bg-rose-500 text-white font-semibold"
+                            : "bg-white/10 text-white hover:bg-rose-400/20"
+                          } transition-colors duration-200`}
                       >
                         {goal}
                       </button>
@@ -198,13 +194,12 @@ export default function WorkspaceStep3() {
                   <button
                     type="submit"
                     disabled={isSubmitting || interests.length === 0 || goals.length === 0}
-                    className={`w-full bg-blue-600 px-4 py-2 rounded-[18px] font-semibold transition ${
-                      isSubmitting || interests.length === 0 || goals.length === 0
+                    className={`w-full bg-rose-600 px-4 py-2 rounded-[18px] font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400/50 ${isSubmitting || interests.length === 0 || goals.length === 0
                         ? "opacity-50 cursor-not-allowed"
-                        : "hover:bg-blue-700"
-                    }`}
+                        : "hover:bg-rose-700"
+                      }`}
                   >
-                    {isSubmitting ? w("loading") : w("btnContinue")}
+                    {isSubmitting ? "Loading..." : "Continue"}
                   </button>
                 </div>
               </div>
@@ -214,12 +209,4 @@ export default function WorkspaceStep3() {
       </div>
     </div>
   );
-}
-
-export async function getStaticProps({ locale }: GetStaticPropsContext) {
-  return {
-    props: {
-      messages: (await import(`../../messages/${locale}.json`)).default,
-    },
-  };
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import { useTranslations } from "next-intl";
-import { saveImage } from "../pages/api/storeImage";
 
 interface MessageInputFormProps {
   input: string;
@@ -93,23 +92,24 @@ export default function MessageInputForm({
     if (selectedFiles.length > 0) {
       try {
         for (const file of selectedFiles) {
-          const arrayBuffer = await file.arrayBuffer();
-          const buffer = Buffer.from(arrayBuffer);
+          const formData = new FormData();
+          formData.append("userId", userId!);
+          formData.append("workspaceId", workspaceId!);
+          if (chatId) formData.append("chatId", chatId);
+          formData.append("file", file, file.name || `uploaded-${Date.now()}.jpg`);
 
-          const fileData = {
-            name: file.name || `uploaded-${Date.now()}.jpg`,
-            buffer,
-            type: file.type || "image/jpeg",
-          };
-
-          const result = await saveImage({
-            userId: userId!,
-            workspaceId: workspaceId!,
-            chatId: chatId || undefined,
-            file: fileData,
+          const resp = await fetch("/api/storeImage", {
+            method: "POST",
+            body: formData,
           });
-
-          uploadedUrls.push(result.image.url);
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.error || `Upload failed with status ${resp.status}`);
+          }
+          const result = await resp.json();
+          if (result?.image?.url) {
+            uploadedUrls.push(result.image.url as string);
+          }
         }
       } catch (error) {
         console.error("Error uploading files:", error);
@@ -141,7 +141,7 @@ export default function MessageInputForm({
   return (
     <div
       className={`relative flex w-full flex-col items-center gap-2 bg-white shadow-2xl rounded-2xl 
-      ${isChatModel ? "max-w-full" : "max-w-xl"} ${className}`}
+      ${isChatModel ? "max-w-full" : "max-w-full sm:max-w-xl"} ${className}`}
     >
       <form
         className="flex w-full flex-col overflow-hidden p-4 pt-2 rounded-2xl bg-white/20 ring-1 ring-inset ring-white/20 backdrop-blur-2xl"
@@ -157,7 +157,7 @@ export default function MessageInputForm({
               {selectedFiles.map((file, i) => (
                 <div
                   key={i}
-                  className="group relative mb-2 mr-2 flex w-[250px] flex-none items-center gap-3 rounded-lg bg-black/10 p-2 ring-1 ring-inset ring-black/10"
+                  className="group relative mb-2 mr-2 flex w-48 sm:w-60 flex-none items-center gap-3 rounded-lg bg-black/10 p-2 ring-1 ring-inset ring-black/10"
                 >
                   <div className="flex flex-none items-center justify-center rounded-md bg-black/20 p-2">
                     {loadingPreviews[i] ? (
@@ -273,7 +273,7 @@ export default function MessageInputForm({
 
           {/* Submit Button */}
           <button
-            className="flex flex-none items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 rounded-full ring-1 ring-inset ring-white/10 transition duration-150 h-12 aspect-square p-0 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400"
+            className="flex flex-none items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 rounded-full ring-1 ring-inset ring-white/10 transition duration-150 h-12 aspect-square p-0 bg-rose-500 hover:bg-rose-600 disabled:bg-gray-400"
             type="submit"
             disabled={
               loading ||
