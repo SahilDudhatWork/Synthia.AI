@@ -16,6 +16,8 @@ function Dashboard() {
   const [AIModels, setAIModels] = useState<any[]>([]);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [displayNameText, setDisplayNameText] = useState<string | null>(null);
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -25,8 +27,22 @@ function Dashboard() {
   // Get workspaceId from URL query parameter
   const queryWorkspaceId = router.query?.workspaceId as string | undefined;
 
+  // Palette aligned with `components/Sidebar.tsx`
+  const lightColors = [
+    { bg: "#E9D5FF", text: "#9333EA" }, // Purple
+    { bg: "#FEF08A", text: "#CA8A04" }, // Yellow
+    { bg: "#BAE6FD", text: "#0284C7" }, // Blue
+    { bg: "#BBF7D0", text: "#16A34A" }, // Green
+    { bg: "#FBCFE8", text: "#DB2777" }, // Pink
+  ];
+
+  // Determine active theme based on active workspace position
+  const activeIndex = workspaces.findIndex((ws) => ws.id === activeWorkspaceId);
+  const theme = lightColors[(activeIndex === -1 ? 0 : activeIndex) % lightColors.length];
+
+  // Keep global background white (only top gradient is themed)
   useEffect(() => {
-    setBackgroundColor("#fff7d9");
+    setBackgroundColor("#ffffff");
   }, [setBackgroundColor]);
 
   // Fetch user and workspaces data
@@ -39,6 +55,18 @@ function Dashboard() {
         } = await supabase.auth.getUser();
         if (!user) return router.push("/auth/login");
         setUser(user);
+
+        try {
+          const { data: userData } = await supabase
+            .from("users")
+            .select("avatar_url, name")
+            .eq("id", user.id)
+            .single();
+          if (userData) {
+            setProfileImage(userData.avatar_url || null);
+            if (userData.name) setDisplayNameText(userData.name);
+          }
+        } catch (e) { }
 
         const { data } = await supabase
           .from("workspaces")
@@ -119,18 +147,44 @@ function Dashboard() {
     });
   };
 
-  const displayName = user?.user_metadata?.name || user?.email || "User";
-  const activeWorkspace = workspaces.find((ws) => ws.id === activeWorkspaceId);
+  const displayName = displayNameText || user?.user_metadata?.name || "User";
+  const getInitial = () => {
+    if (displayName) return displayName[0].toUpperCase();
+    return "U";
+  };
+  // const activeWorkspace = workspaces.find((ws) => ws.id === activeWorkspaceId);
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const greetingEmoji = hour < 12 ? "☀️" : hour < 18 ? "🌤️" : "🌙";
+  const activeWorkspaceName = workspaces.find((ws) => ws.id === activeWorkspaceId)?.name || "";
 
   return (
     <>
       <div className="relative w-full h-full">
-        <div className="absolute inset-0 h-80">
-          <div className="absolute inset-0 bg-[radial-gradient(88.55%_105.05%_at_50.04%_-5.05%,_#FFF3C6_0%,_rgba(255,243,198,0)_100%)]"></div>
+        <div className="absolute inset-0 h-80 pointer-events-none">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                `radial-gradient(88.55% 105.05% at 50.04% -5.05%, ${theme.bg} 0%, rgba(237,233,254,0) 100%)`,
+            }}
+          ></div>
           <div className="absolute inset-0 bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-25 mix-blend-overlay"></div>
         </div>
+        {/* Bottom subtle gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                `radial-gradient(88.55% 105.05% at 50.04% 105.05%, ${theme.bg} 0%, rgba(237,233,254,0) 100%)`,
+              opacity: 0.6,
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-[url('/noise.png')] bg-[length:128px_128px] bg-repeat opacity-20 mix-blend-overlay"></div>
+        </div>
         <div
-          className="flex h-full w-full flex-1 flex-col items-center justify-center bg-[#F6F9FF] rounded-lg"
+          className="flex h-full w-full flex-1 flex-col items-center justify-center rounded-lg"
           ref={contentRef}
         >
           {isInitialLoading ? (
@@ -139,26 +193,42 @@ function Dashboard() {
             </div>
           ) : (
             <div className="relative w-full max-w-7xl mx-auto items-center gap-12 px-4 py-5 md:px-16 md:py-14 flex flex-col">
-              <h1 className="text-3xl sm:text-4xl text-[#713f12] text-center">
-                <span className="font-bold">
-                  Hii roys 
-                  <br />
-                  {activeWorkspace?.name || displayName}'s
-                </span>{" "}
-                <span className="italic font-cursive font-bold">
-                  {d("workspace")}
-                </span>
-              </h1>
-              {/* <MessageInputForm
-                input={input}
-                setInput={setInput}
-                onSubmit={handleSubmit}
-                loading={loading}
-              /> */}
+              <div className="w-full self-stretch flex items-center justify-center gap-6 md:gap-8">
+                <div className="flex text-center items-center gap-4 md:gap-5 min-w-0">
+                  <div className="flex min-w-0 flex-col items-center">
+                    <div className="flex items-center justify-center gap-2 flex-wrap">
+                      {activeWorkspaceName && (
+                        <span
+                          className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium tracking-wide text-gray-700 bg-white/70"
+                          style={{ borderColor: theme.text }}
+                        >
+                          Workspace: {activeWorkspaceName}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <h1
+                        className="mt-2 text-2xl sm:text-4xl font-extrabold tracking-tight text-center truncate"
+                        style={{ color: theme.text }}
+                        title={`${greeting}, ${displayName}`}
+                      >
+                        <span className="mr-2 text-2xl sm:text-4xl font-bold" aria-hidden>
+                          {greetingEmoji}
+                        </span>
+                        {greeting}, {displayName}
+                      </h1>
+                    </div>
+                    <p className="mt-2 text-sm sm:text-base text-gray-600 leading-6 max-w-2xl text-center">
+                      Find your perfect match, one conversation at a time.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {error && (
                 <p className="text-center text-sm text-red-400">{error}</p>
               )}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-16 w-90% !gap-y-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-16 w-90% !gap-y-7 mt-8">
                 {AIModels.map((model, index) => (
                   <AIModel
                     key={model.id}
